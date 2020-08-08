@@ -1,4 +1,8 @@
 # work-timer
+
+![demo](https://raw.githubusercontent.com/beebeebop/work-timer/master/web/project/static/cards/card_0_azenx.jpg)
+
+
 This is a timer that runs in the browser. It tracks your working hours and plots figures to show the amount of time that you spent on each task. For more usage information, check out this blog:  [Lost Track of Your Hours, Days, Life? Try This Simple Timer App](https://blog.beebeebop.com/timer)
 
 This web application is built with Flask and Python.
@@ -8,7 +12,7 @@ Figures are rendered with Matplotlib + mpld3
 The timer is in Javascript, which is largely borrowed from [https://github.com/helloflask/timer](https://github.com/helloflask/timer)
 The application is containerized with Docker
 
-Here is a demo: [timer.beebeebop.com](timer.beebeebop.com)
+Here is a demo: [Work Timer](timer.beebeebop.com)
 
 
 
