@@ -1,0 +1,16 @@
+Flask
+WTForms
+flask_kvsession
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Bootstrap
+Flask-WTF
+Werkzeug
+#redis
+mpld3
+#simplejson
+numpy
+matplotlib
+gunicorn
+pytz
+

@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  web:
+    build: ./web
+    expose:
+      - "8000"
+    volumes:
+      - db-volume:/home/flask/app/web/instance/dbfiles
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 project.wsgi:app
+    networks:
+      - proxy1_default
+
+volumes:
+  db-volume:
+  
+    
+networks:
+  proxy1_default:
+    external: true
+    
+    

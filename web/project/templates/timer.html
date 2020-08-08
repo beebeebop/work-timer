@@ -1,0 +1,91 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block app_content %}
+  <audio id="over_music">
+    <source src="{{ url_for('static', filename='beepbeep.mp3') }}">
+  </audio>
+
+  <br>
+  <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+          <div class="thumbnail">
+            <h2>Tag: {{session['tagname']}}</h2>
+            <br>
+            <h1 id="time"></h1>
+          </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="thumbnail">
+            <img src="{{ url_for('static', filename='cards/'+card) }}" alt="card" style="width:50%">
+            <div class="caption">
+                <p style="text-align:center;">
+                    <span style="float:center;">
+                        Make more cards at <a href="https://app.beebeebop.com" target="_blank">app.beebeebop.com</a>
+                    </span>
+                </p>
+            </div>
+          </div>
+      </div>
+  </div>
+  <br>
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+  <script>
+    var Seconds = {{ session['duration'] }};
+
+    // timer function
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+
+        var start_time = new Date().getTime()
+        console.log(start_time)
+
+        var refresh = setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            var output = minutes + " : " + seconds;
+            display.text(output);
+            $("title").html(output + " - Work Timer");
+
+            if (--timer < 0) {
+
+                var end_time = new Date().getTime()
+                console.log(end_time)
+                console.log(start_time)
+                console.log(' ')
+
+                $.ajax({
+                  method: 'POST',
+                  url:"/session/add?start="+start_time+"&end="+end_time
+
+                }).done(function(data, status){
+                  console.log(data)
+                  console.log(status)
+                });
+
+                display.text("Time's Up!");
+                clearInterval(refresh);  // exit refresh loop
+                var music = $("#over_music")[0];
+                music.play();
+                alert("Time's Up!");
+            }
+        }, 1000);
+
+    }
+
+    // start timer
+    jQuery(function ($) {
+        var display = $('#time');
+        startTimer(Seconds, display);
+    });
+  </script>
+{% endblock %}

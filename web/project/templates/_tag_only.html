@@ -1,0 +1,15 @@
+
+
+
+<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+    <div class="thumbnail">
+        <div class="caption">
+            <p style="text-align:left;">
+                <p>tag: </p> <a href="{{url_for('timer.set_timer')+'?tagname='+tag.tagname}}"> {{tag.tagname}} </a>
+            </p>
+            <p style="text-align:left;">
+                <a href="{{url_for('timer.tag_stats', tagname=tag.tagname) }}" target="_blank"> stats </a>
+            </p>
+        </div>
+    </div>
+</div>

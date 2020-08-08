@@ -1,0 +1,133 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+    body {overflow-x: hidden;}
+
+    .usage {
+      position: relative;
+      font-size: 16px;
+      background: #fff;
+      width: 400px;
+      height: 400px;
+      padding: 20px;
+      margin: 10px 0 0 50px;
+      display: none;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+
+  </style>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{% endblock %}
+
+{% block title %}
+    {% if title %}{{ title }} - Work Timer{% else %}Work Timer{% endif %}
+{% endblock %}
+
+{% block navbar %}
+  <nav class="navbar navbar-transparent">
+    <div class="container-fluid">
+      <div>
+        <a class="navbar-brand" href="{{ url_for('timer.showtags') }}">Timer</a>
+        <a type="button" class="btn btn-light navbar-brand" id="help-btn">?</a>
+      </div>
+      <div>
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-brand">Welcome {{ g.user['username'] }} !</p>
+          <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                {% if g.user %}
+                  <p class="dropdown-item">Logged in as: {{ g.user['username'] }}</p>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('timer.showtags') }}" class="dropdown-item">All Tags</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('timer.create_tag') }}" class="dropdown-item">New Tag</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('timer.stats') }}" class="dropdown-item">Stats</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('timer.logout') }}" class="dropdown-item">Logout</a>
+                  <div class="dropdown-divider"></div>
+                {% else %}
+                  <a href="{{ url_for('timer.login') }}" class="dropdown-item">Login</a>
+                {% endif %}
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container-fluid">
+        <div class="usage" id="help-info">
+          <h3>This is a simple timer</h3><br>
+          <p><b>How to use it?</b></p>
+          <ul>
+            <li> Login or create a user </li>
+            <li> Create some tags under the user </li>
+            <li> Click on the tag to set a duration (30, 30s, 20m, 1h, etc) and start the timer </li>
+            <li> Click on "stats" to see how much work you've done under each tag </li>
+          </ul>
+          <p>
+            See link at bottom for more information.
+          </p>
+        </div>
+
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+
+
+    </div>
+
+
+
+    {% block footer %}
+
+    <footer class="footer text-center navbar-fixed-bottom">
+      <h4>
+      <a href="https://blog.beebeebop.com/timer" target="_blank">About</a>
+      |
+      <a href="https://github.com/beebeebop/work-timer" target="_blank">Fork me on Github</a>
+      </h4>
+    </footer>
+
+    {% endblock %}
+
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+  {{super()}}
+  <script>
+    // show help information
+    $('#help-info').hide();
+    $('#help-btn').hover( function() { $('#help-info').toggle(); } );
+  </script>
+
+{% endblock %}

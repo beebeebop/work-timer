@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    {% if not tags %}
+      <div>No tags found!</div>
+      <div>Please create a tag first: <a href="{{ url_for('timer.create_tag') }}">Create Tag</a> and then click the tag to start the timer</div>
+    {% endif %}
+
+    <div class="row">
+    <div class="row" style="display:flex; flex-wrap: wrap;">
+    {% for tag in tags %}
+        {% include '_tag_only.html' %}
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
