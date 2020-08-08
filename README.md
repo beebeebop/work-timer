@@ -5,10 +5,10 @@ This web application is built with Flask and Python.
 Data is stored in sqlite3 with the help of Flask-SQLAlchemy and Flask-Migrate
 Web forms are built with WTForms, Flask-Bootstrap and Flask-WTF
 Figures are rendered with Matplotlib + mpld3 
-The timer is in Javascript, which is largely borrowed from https://github.com/helloflask/timer
+The timer is in Javascript, which is largely borrowed from [https://github.com/helloflask/timer](https://github.com/helloflask/timer)
 The application is containerized with Docker
 
-Here is a demo: timer.beebeebop.com
+Here is a demo: [timer.beebeebop.com](timer.beebeebop.com)
 
 
 
@@ -16,11 +16,12 @@ Here is a demo: timer.beebeebop.com
 
 
 ### With docker:
+Pull the image from docker hub: 
 ```
-docker run -dit -p 80:8000 --name work-timer-1 --volume=/home/rx/tmp/dbfiles:/home/flask/app/web/instance/dbfiles beebeebop/work-timer /usr/local/bin/gunicorn -w 2 -b :8000 project.wsgi:app
+$ docker pull beebeebop/work-timer
+$ docker run -dit -p 80:8000 --name work-timer-1 --volume=<a directory on host machine>:/home/flask/app/web/instance/dbfiles beebeebop/work-timer /usr/local/bin/gunicorn -w 2 -b :8000 project.wsgi:app
 ```
-or
-
+or to build the docker image from source:
 ```
 $ cd web
 $ docker build -t work-timer .
@@ -66,5 +67,8 @@ If running for the first time, do the following to create the database file:
 ```                 
 $ flask db upgrade                 
 ```
+
+## Important!
+Don't forget to change the SECRET_KEY in flask.cfg if you are deploying this service in WAN. 
 
 
