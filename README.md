@@ -5,16 +5,22 @@ This web application is built with Flask and Python.
 Data is stored in sqlite3 with the help of Flask-SQLAlchemy and Flask-Migrate
 Web forms are built with WTForms, Flask-Bootstrap and Flask-WTF
 Figures are rendered with Matplotlib + mpld3 
-The timer is in Javascript, which is largely borrowed from [https://github.com/helloflask/timer]
+The timer is in Javascript, which is largely borrowed from https://github.com/helloflask/timer
 The application is containerized with Docker
 
-Here is a demo: [timer.beebeebop.com]
+Here is a demo: timer.beebeebop.com
 
 
 
 ## To run the service
 
+
 ### With docker:
+```
+docker run -dit -p 80:8000 --name work-timer-1 --volume=/home/rx/tmp/dbfiles:/home/flask/app/web/instance/dbfiles beebeebop/work-timer /usr/local/bin/gunicorn -w 2 -b :8000 project.wsgi:app
+```
+or
+
 ```
 $ cd web
 $ docker build -t work-timer .

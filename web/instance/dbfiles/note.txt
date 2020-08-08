@@ -1,0 +1,7 @@
+
+when running in docker, a volume is created and mapped to this folder, which stores the app.db sqlite3 database file
+
+You need the volume for sqlite3 connection to work in docker
+
+
+
